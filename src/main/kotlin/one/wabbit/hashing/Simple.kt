@@ -5,9 +5,7 @@ import java.io.FileInputStream
 import java.nio.file.Path
 import java.security.MessageDigest
 
-private fun ByteArray.toHexString(): String {
-    return joinToString("") { "%02x".format(it) }
-}
+private fun ByteArray.toHexString(): String = joinToString("") { "%02x".format(it) }
 
 fun Path.rawDigest(algorithm: String): ByteArray {
     val path = this
@@ -25,8 +23,7 @@ fun Path.rawDigest(algorithm: String): ByteArray {
     return digest.digest()
 }
 
-fun File.rawDigest(algorithm: String): ByteArray =
-    this.toPath().rawDigest(algorithm)
+fun File.rawDigest(algorithm: String): ByteArray = this.toPath().rawDigest(algorithm)
 
 fun String.rawDigest(algorithm: String): ByteArray {
     val digest = MessageDigest.getInstance(algorithm)
@@ -39,26 +36,41 @@ fun ByteArray.rawDigest(algorithm: String): ByteArray {
 }
 
 fun Path.digest(algorithm: String): String = this.rawDigest(algorithm).toHexString()
+
 fun File.digest(algorithm: String): String = this.rawDigest(algorithm).toHexString()
+
 fun String.digest(algorithm: String): String = this.rawDigest(algorithm).toHexString()
+
 fun ByteArray.digest(algorithm: String): String = this.rawDigest(algorithm).toHexString()
 
 fun Path.sha1(): String = this.digest("SHA-1")
+
 fun File.sha1(): String = this.toPath().digest("SHA-1")
+
 fun String.sha1(): String = this.digest("SHA-1")
+
 fun ByteArray.sha1(): String = this.digest("SHA-1")
 
 fun Path.sha256(): String = this.digest("SHA-256")
+
 fun File.sha256(): String = this.toPath().digest("SHA-256")
+
 fun String.sha256(): String = this.digest("SHA-256")
+
 fun ByteArray.sha256(): String = this.digest("SHA-256")
 
 fun Path.sha512(): String = this.digest("SHA-512")
+
 fun File.sha512(): String = this.toPath().digest("SHA-512")
+
 fun String.sha512(): String = this.digest("SHA-512")
+
 fun ByteArray.sha512(): String = this.digest("SHA-512")
 
 fun Path.md5(): String = this.digest("MD5")
+
 fun File.md5(): String = this.toPath().digest("MD5")
+
 fun String.md5(): String = this.digest("MD5")
+
 fun ByteArray.md5(): String = this.digest("MD5")
